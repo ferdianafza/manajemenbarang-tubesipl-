@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Des 2023 pada 04.13
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Generation Time: Dec 04, 2023 at 04:46 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,19 +24,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `barang`
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(10) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barang`
 --
 
 CREATE TABLE `barang` (
   `id` int(10) NOT NULL,
   `nama_barang` varchar(100) NOT NULL,
   `stok` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `staff`
+-- Table structure for table `staff`
 --
 
 CREATE TABLE `staff` (
@@ -44,10 +57,10 @@ CREATE TABLE `staff` (
   `username` varchar(150) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `staff`
+-- Dumping data for table `staff`
 --
 
 INSERT INTO `staff` (`id`, `username`, `email`, `password`) VALUES
@@ -59,29 +72,41 @@ INSERT INTO `staff` (`id`, `username`, `email`, `password`) VALUES
 --
 
 --
--- Indeks untuk tabel `barang`
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `barang`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `staff`
+-- Indexes for table `staff`
 --
 ALTER TABLE `staff`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `barang`
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `staff`
+-- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
