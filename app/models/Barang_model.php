@@ -51,3 +51,45 @@ class Barang_model{
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
+
+	public function updateAddStok($data) {
+        $currentStock = $this->getCurrentStock($data['barang_id']);
+        $newStock = $currentStock + $data['jumlah'];
+
+        $query = "UPDATE barang SET 
+                    stok = :stok
+                    WHERE id = :id";
+
+        $this->db->query($query);
+        $this->db->bind(':stok', $newStock);
+        $this->db->bind(':id', $data['barang_id']);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    public function updateMinusStok($data) {
+        $currentStock = $this->getCurrentStock($data['barang_id']);
+        $newStock = $currentStock - $data['jumlah'];
+
+        $query = "UPDATE barang SET 
+                    stok = :stok
+                    WHERE id = :id";
+
+        $this->db->query($query);
+        $this->db->bind(':stok', $newStock);
+        $this->db->bind(':id', $data['barang_id']);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+	private function getCurrentStock($barang_id) {
+        $query = "SELECT stok FROM barang WHERE id = :id";
+        $this->db->query($query);
+        $this->db->bind(':id', $barang_id);
+        $result = $this->db->single();
+
+        return $result['stok'];
+    }
+}
