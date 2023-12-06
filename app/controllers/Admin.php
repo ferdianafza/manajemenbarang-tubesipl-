@@ -51,6 +51,25 @@ class Admin extends Controller{
 	    }
 	}
 
+	// view form login
+	public function index() {
+        $adminModel = $this->model('Admin_model');
+        $data = $adminModel->checkLoginStatus();
+        $data['judul'] = 'Halaman Admin';
+        $data['barang'] = $this->model('Barang_model')->getAllBarang();
+        $data['barang_masuk'] = $this->model('BarangMasuk_model')->getAllBarangMasukWithBarang();
+        $data['barang_keluar'] = $this->model('BarangKeluar_model')->getAllBarangKeluarWithBarang();
+        $this->view('templates/header', $data);
+        $this->view('admin/index', $data);
+        $this->view('templates/footer');
+    }
+
+
+    public function destroySession() {
+        $adminModel = $this->model('Admin_model');
+        $adminModel->destroySession();
+    }
+
 
 
 	
