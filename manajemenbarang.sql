@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2023 at 04:46 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Dec 06, 2023 at 07:47 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,6 +34,14 @@ CREATE TABLE `admin` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `email`, `password`) VALUES
+(1, 'admin1', 'admin1@gmail.com', '$2y$10$ct0wQKPG9fXrjVUb5sLWhOrcJ4lWsOr3H7/BokBpk5U5LCRGMfzES'),
+(2, 'admin2', 'admin2@gmail.com', '$2y$10$ff/rQMkCaQ5wHc7W.fvDfuzd/r./KufOSh0VK8wO/jetEXDLZs03O');
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +53,60 @@ CREATE TABLE `barang` (
   `nama_barang` varchar(100) NOT NULL,
   `stok` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `barang`
+--
+
+INSERT INTO `barang` (`id`, `nama_barang`, `stok`) VALUES
+(1, 'Madu TJ', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barang_keluar`
+--
+
+CREATE TABLE `barang_keluar` (
+  `id_barang_keluar` int(10) NOT NULL,
+  `admin_id` int(10) NOT NULL,
+  `barang_id` int(10) NOT NULL,
+  `jumlah` int(10) NOT NULL,
+  `waktu` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `barang_keluar`
+--
+
+INSERT INTO `barang_keluar` (`id_barang_keluar`, `admin_id`, `barang_id`, `jumlah`, `waktu`) VALUES
+(1, 1, 1, 1, '2023-12-06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barang_masuk`
+--
+
+CREATE TABLE `barang_masuk` (
+  `id_barang_masuk` int(10) NOT NULL,
+  `admin_id` int(10) NOT NULL,
+  `barang_id` int(10) NOT NULL,
+  `jumlah` int(10) NOT NULL,
+  `waktu` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `barang_masuk`
+--
+
+INSERT INTO `barang_masuk` (`id_barang_masuk`, `admin_id`, `barang_id`, `jumlah`, `waktu`) VALUES
+(1, 1, 1, 2, '2023-12-06'),
+(2, 1, 1, 2, '2023-12-06'),
+(3, 1, 1, -1, '2023-12-06'),
+(4, 1, 0, -1, '2023-12-06'),
+(5, 1, 0, -1, '2023-12-06'),
+(6, 1, 0, -1, '2023-12-06');
 
 -- --------------------------------------------------------
 
@@ -84,6 +146,21 @@ ALTER TABLE `barang`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `barang_keluar`
+--
+ALTER TABLE `barang_keluar`
+  ADD PRIMARY KEY (`id_barang_keluar`),
+  ADD KEY `admin_id` (`admin_id`),
+  ADD KEY `barang_id` (`barang_id`);
+
+--
+-- Indexes for table `barang_masuk`
+--
+ALTER TABLE `barang_masuk`
+  ADD PRIMARY KEY (`id_barang_masuk`),
+  ADD KEY `admin_id` (`admin_id`);
+
+--
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
@@ -97,13 +174,25 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `barang_keluar`
+--
+ALTER TABLE `barang_keluar`
+  MODIFY `id_barang_keluar` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `barang_masuk`
+--
+ALTER TABLE `barang_masuk`
+  MODIFY `id_barang_masuk` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `staff`
