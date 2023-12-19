@@ -35,5 +35,13 @@ class BarangKeluar_model{
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
+
+	public function getCountBarangKeluar() {
+    	$query = "SELECT COUNT(*) as countBarangKeluar FROM {$this->table} ";
+	    $this->db->query($query);
+	    $result = $this->db->single();
+	    return $result['countBarangKeluar'];
+	}
+
 	
 }
