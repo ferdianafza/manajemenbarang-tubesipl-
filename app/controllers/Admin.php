@@ -59,9 +59,9 @@ class Admin extends Controller{
         $data['barang'] = $this->model('Barang_model')->getAllBarang();
         $data['barang_masuk'] = $this->model('BarangMasuk_model')->getAllBarangMasukWithBarang();
         $data['barang_keluar'] = $this->model('BarangKeluar_model')->getAllBarangKeluarWithBarang();
-        $this->view('templates/header', $data);
+        $this->view('logintemplates/header', $data);
         $this->view('admin/index', $data);
-        $this->view('templates/footer');
+        $this->view('logintemplates/footer');
     }
 
 
