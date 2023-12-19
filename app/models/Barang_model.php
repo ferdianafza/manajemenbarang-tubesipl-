@@ -92,4 +92,24 @@ class Barang_model{
 
         return $result['stok'];
     }
+
+    public function searchData($searchQuery) {
+	    $query = "SELECT * FROM {$this->table} WHERE nama_barang LIKE :search_query";
+	    $this->db->query($query);
+	    $this->db->bind(':search_query', "%$searchQuery%");
+	    return $this->db->resultSet();
+	}
+
+	public function getCountBarang() {
+    	$query = "SELECT COUNT(*) as ready_count FROM {$this->table} WHERE stok > 0";
+	    $this->db->query($query);
+	    $result = $this->db->single();
+	    return $result['ready_count'];
+	}
+	public function getCountBarangEmpty() {
+    	$query = "SELECT COUNT(*) as countEmptyBarang FROM {$this->table} WHERE stok = 0";
+	    $this->db->query($query);
+	    $result = $this->db->single();
+	    return $result['countEmptyBarang'];
+	}
 }
