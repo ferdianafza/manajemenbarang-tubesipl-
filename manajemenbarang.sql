@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2023 at 07:47 AM
+-- Generation Time: Dec 08, 2023 at 03:34 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -34,14 +34,6 @@ CREATE TABLE `admin` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id`, `username`, `email`, `password`) VALUES
-(1, 'admin1', 'admin1@gmail.com', '$2y$10$ct0wQKPG9fXrjVUb5sLWhOrcJ4lWsOr3H7/BokBpk5U5LCRGMfzES'),
-(2, 'admin2', 'admin2@gmail.com', '$2y$10$ff/rQMkCaQ5wHc7W.fvDfuzd/r./KufOSh0VK8wO/jetEXDLZs03O');
-
 -- --------------------------------------------------------
 
 --
@@ -53,13 +45,6 @@ CREATE TABLE `barang` (
   `nama_barang` varchar(100) NOT NULL,
   `stok` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `barang`
---
-
-INSERT INTO `barang` (`id`, `nama_barang`, `stok`) VALUES
-(1, 'Madu TJ', 2);
 
 -- --------------------------------------------------------
 
@@ -75,13 +60,6 @@ CREATE TABLE `barang_keluar` (
   `waktu` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `barang_keluar`
---
-
-INSERT INTO `barang_keluar` (`id_barang_keluar`, `admin_id`, `barang_id`, `jumlah`, `waktu`) VALUES
-(1, 1, 1, 1, '2023-12-06');
-
 -- --------------------------------------------------------
 
 --
@@ -96,18 +74,6 @@ CREATE TABLE `barang_masuk` (
   `waktu` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `barang_masuk`
---
-
-INSERT INTO `barang_masuk` (`id_barang_masuk`, `admin_id`, `barang_id`, `jumlah`, `waktu`) VALUES
-(1, 1, 1, 2, '2023-12-06'),
-(2, 1, 1, 2, '2023-12-06'),
-(3, 1, 1, -1, '2023-12-06'),
-(4, 1, 0, -1, '2023-12-06'),
-(5, 1, 0, -1, '2023-12-06'),
-(6, 1, 0, -1, '2023-12-06');
-
 -- --------------------------------------------------------
 
 --
@@ -120,14 +86,6 @@ CREATE TABLE `staff` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `staff`
---
-
-INSERT INTO `staff` (`id`, `username`, `email`, `password`) VALUES
-(1, 'qeqenexo', 'wyzaqumi@mailinator.com', '$2y$10$iMd.iG7PAOMKXg3PhiUHEubS3FoUar1vDWTHLXWQT5IXmkYwtrdGq'),
-(3, 'ferdian', 'farisafza201002@gmail.com', '$2y$10$H9yiaA1.24FwuEtJekmS7u3Hrn57K9Q/iQJ9HDlthujdNUGT4lAsO');
 
 --
 -- Indexes for dumped tables
@@ -158,7 +116,8 @@ ALTER TABLE `barang_keluar`
 --
 ALTER TABLE `barang_masuk`
   ADD PRIMARY KEY (`id_barang_masuk`),
-  ADD KEY `admin_id` (`admin_id`);
+  ADD KEY `admin_id` (`admin_id`),
+  ADD KEY `barang_id` (`barang_id`);
 
 --
 -- Indexes for table `staff`
@@ -199,6 +158,24 @@ ALTER TABLE `barang_masuk`
 --
 ALTER TABLE `staff`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `barang_keluar`
+--
+ALTER TABLE `barang_keluar`
+  ADD CONSTRAINT `barang_keluar_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`),
+  ADD CONSTRAINT `barang_keluar_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`);
+
+--
+-- Constraints for table `barang_masuk`
+--
+ALTER TABLE `barang_masuk`
+  ADD CONSTRAINT `barang_masuk_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`),
+  ADD CONSTRAINT `barang_masuk_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
