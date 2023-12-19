@@ -5,9 +5,9 @@ class Staff extends Controller{
 	// view form create account
 	public function new(){
 		$data['judul'] = 'Buat Akun Staff';
-		$this->view('templates/header', $data);
+		$this->view('logintemplates/header', $data);
 		$this->view('staff/new');
-		$this->view('templates/footer');
+		$this->view('logintemplates/footer');
 	}
 
 	// create account
@@ -26,9 +26,9 @@ class Staff extends Controller{
 	// view form login
 	public function login(){
 		$data['judul'] = 'Login Staff';
-		$this->view('templates/header', $data);
+		$this->view('logintemplates/header', $data);
 		$this->view('staff/login');
-		$this->view('templates/footer');
+		$this->view('logintemplates/footer');
 	}
 
 	// validate login
