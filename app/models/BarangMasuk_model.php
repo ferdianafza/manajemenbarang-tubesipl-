@@ -35,5 +35,12 @@ class BarangMasuk_model{
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
+
+	public function getCountBarangMasuk() {
+    	$query = "SELECT COUNT(*) as countBarangMasuk FROM {$this->table} ";
+	    $this->db->query($query);
+	    $result = $this->db->single();
+	    return $result['countBarangMasuk'];
+	}
 	
 }
