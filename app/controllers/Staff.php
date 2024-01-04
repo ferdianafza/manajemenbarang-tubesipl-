@@ -37,10 +37,10 @@ class Staff extends Controller{
 
 	    if ($userData) {
 	        session_start();
-	        $_SESSION["login"] = true;
-	        $_SESSION["username"] = $userData["username"];
-	        $_SESSION["email"] = $userData["email"];
-	        $_SESSION["id"] = $userData["id"];
+	        $_SESSION["loginstaff"] = true;
+	        $_SESSION["usernamestaff"] = $userData["username"];
+	        $_SESSION["emailstaff"] = $userData["email"];
+	        $_SESSION["idstaff"] = $userData["id"];
 	        Flasher::setFlash('berhasil', 'login', 'success');
 	        header('Location: '.BASEURL.'/dashboard/index');
 	        exit;
