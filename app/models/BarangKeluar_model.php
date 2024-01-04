@@ -17,7 +17,7 @@ class BarangKeluar_model{
          $query = "SELECT bk.id_barang_keluar, a.username as admin_username, bk.barang_id, b.nama_barang, bk.jumlah, bk.waktu
                   FROM barang_keluar bk
                   JOIN admin a ON bk.admin_id = a.id
-                  JOIN barang b ON bk.barang_id = b.id";
+                  JOIN barang b ON bk.barang_id = b.id ORDER BY bk.id_barang_keluar DESC";
 
         $this->db->query($query);
         return $this->db->resultSet();
@@ -35,6 +35,20 @@ class BarangKeluar_model{
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
+
+	public function minusBarangAfterCreateSuratJalan($kodeSuratJalan, $barangIds, $jumlahs){
+	    foreach ($barangIds as $index => $barangId) {
+	        $query = "INSERT INTO barang_keluar VALUES('', :admin_id, :barang_id, :jumlah, :waktu)";
+	        $this->db->query($query);
+	        $this->db->bind(':admin_id', 7); // Sesuaikan dengan kolom admin_id
+	        $this->db->bind(':barang_id', $barangId);
+	        $this->db->bind(':jumlah', $jumlahs[$index]);
+	        $this->db->bind(':waktu', date('Y-m-d H:i:s'));
+	        $this->db->execute();
+	    }
+	    return count($barangIds);
+	}
+
 
 	public function getCountBarangKeluar() {
     	$query = "SELECT COUNT(*) as countBarangKeluar FROM {$this->table} ";
