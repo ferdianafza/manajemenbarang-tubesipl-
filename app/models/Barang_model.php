@@ -68,6 +68,17 @@ class Barang_model{
         return $this->db->rowCount();
     }
 
+    public function updateMinusStokAfterCreateSuratJalan($kodeSuratJalan, $barangIds, $jumlahs){
+	    foreach ($barangIds as $index => $barangId) {
+	        $query = "UPDATE barang SET stok = stok - :jumlah WHERE id = :barang_id";
+	        $this->db->query($query);
+	        $this->db->bind(':jumlah', $jumlahs[$index]);
+	        $this->db->bind(':barang_id', $barangId);
+	        $this->db->execute();
+	    }
+	    return count($barangIds);
+	}
+
     public function updateMinusStok($data) {
         $currentStock = $this->getCurrentStock($data['barang_id']);
         $newStock = $currentStock - $data['jumlah'];
@@ -84,7 +95,7 @@ class Barang_model{
         return $this->db->rowCount();
     }
 
-	private function getCurrentStock($barang_id) {
+	public function getCurrentStock($barang_id) {
         $query = "SELECT stok FROM barang WHERE id = :id";
         $this->db->query($query);
         $this->db->bind(':id', $barang_id);
