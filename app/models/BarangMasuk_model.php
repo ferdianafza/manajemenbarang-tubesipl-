@@ -17,7 +17,7 @@ class BarangMasuk_model{
          $query = "SELECT bm.id_barang_masuk, a.username as admin_username, bm.barang_id, b.nama_barang, bm.jumlah, bm.waktu
                   FROM barang_masuk bm
                   JOIN admin a ON bm.admin_id = a.id
-                  JOIN barang b ON bm.barang_id = b.id";
+                  JOIN barang b ON bm.barang_id = b.id ORDER BY bm.id_barang_masuk DESC";
 
         $this->db->query($query);
         return $this->db->resultSet();
