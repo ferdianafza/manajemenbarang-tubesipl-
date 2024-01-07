@@ -1,29 +1,49 @@
-<div class="container mt-5" >
-	<div class="row">
-		<div class="col-lg-6">
-			<?php Flasher::flash();?>
-		</div>
-	</div>
-	<form action="<?= BASEURL;?>/admin/create" method="post" >
-		<div class="mb-3">
-		  <label for="username" class="form-label">Username</label>
-		  <input type="text" class="form-control" id="username" name="username" placeholder="username" required="">
-		</div>
-		<div class="mb-3">
-		  <label for="email" class="form-label">Email </label>
-		  <input type="email" class="form-control" id="email" name="email" placeholder="email" required="">
-		</div>
-		<div class="mb-3">
-		  <label for="password" class="form-label">Password</label>
-		  <input type="password" class="form-control" id="password" name="password" placeholder="password" required="">
-		</div>
-		<div class="mb-3">
-		  <label for="confirmPassword" class="form-label">Confirmation Password</label>
-		  <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirmation Password" required="">
-		</div>
-		<div class="mb-3">
-		  <button class="btn btn-primary" type="submit">Create Account</button>
-		</div>
-	</form>
-	<a href="<?= BASEURL;?>/admin/login">Log in</a>
-</div>
+<main class="main-content  mt-0">
+	<center>  
+	    <section>
+	      <div class="page-header min-vh-75">
+	        <div class="container">
+	          <div class="row">
+	              <div class="card card-plain mt-8">
+	                <div class="card-header pb-0 text-left bg-transparent">
+	                  <div class="row">
+						<div class="col-lg-6">
+			            </div>
+		              </div>
+	                  <h3 class="font-weight-bolder text-info text-gradient">BUAT AKUN</h3>
+					  <?php Flasher::flash();?>
+	                </div>
+	                <div class="card-body">
+	                  <form action="<?= BASEURL;?>/admin/create" method="post" >
+	                    <div class="mb-3">
+	                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="email-addon" name="username" required="">
+	                    </div>
+
+	                    <div class="mb-3">
+	                      <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon" name="email" required="">
+	                    </div>
+	                    <div class="mb-3">
+	                      <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon" name="password" required="">
+	                    </div>
+	                    <div class="mb-3">
+	                      <input type="password" class="form-control" placeholder="Konfirmasi Password" aria-label="Password" aria-describedby="password-addon" name="confirmPassword" required="">
+	                    </div>
+	                    <div class="text-center">
+	                      <button type="submit" class="btn btn-info bg-gradient-info w-100 mt-4 mb-0">Daftar</button>
+	                    </div>
+	                  </form>
+	                </div>
+	                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+	                  <p class="mb-4 text-sm mx-auto">
+	                    Sudah Punya Akun?
+	                    <a href="<?= BASEURL;?>/admin/login">Masuk</a>
+	                  </p>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+    </center>
+  </main>
