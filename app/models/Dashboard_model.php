@@ -2,26 +2,17 @@
 
 class Dashboard_model {
     public function checkLoginStatus() {
-        if (!isset($_SESSION["login"]) || $_SESSION["login"] == false) {
+        if (!isset($_SESSION["loginstaff"]) || $_SESSION["loginstaff"] == false) {
             header('Location: '.BASEURL.'/staff/login');
             exit;
         } else {
-            $data['username'] = $_SESSION["username"];
-            $data['email'] = $_SESSION["email"];
-            $data['id'] = $_SESSION["id"];
+            $data['usernamestaff'] = $_SESSION["usernamestaff"];
+            $data['emailstaff'] = $_SESSION["emailstaff"];
+            $data['idstaff'] = $_SESSION["idstaff"];
             $data['judul'] = 'Dashboard';
 
             return $data;
         }
-    }
-    public function destroySession() {
-        session_start();
-        $_SESSION = [];
-        session_unset();
-        session_destroy();
-
-        header('Location: '.BASEURL.'/staff/login');
-        exit;
     }
 }
 
