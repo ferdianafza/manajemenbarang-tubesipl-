@@ -51,6 +51,20 @@ class Staff_model{
         return $this->db->rowCount();
     }
 
+    public function checkLoginStatus() {
+        if (!isset($_SESSION["logistaff"]) || $_SESSION["logistaff"] == false) {
+            header('Location: '.BASEURL.'/staff/login');
+            exit;
+        } else {
+            $data['username'] = $_SESSION["username"];
+            $data['email'] = $_SESSION["email"];
+            $data['id'] = $_SESSION["id"];
+            $data['judul'] = 'Halaman Admin';
+
+            return $data;
+        }
+    }
+
     public function createSession($data){
 	    $email = $data["email"];
 	    $password = $data["password"];
