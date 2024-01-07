@@ -5,9 +5,9 @@ class Admin extends Controller{
 	// view form create account
 	public function new(){
 		$data['judul'] = 'Buat Akun Admin';
-		$this->view('templates/header', $data);
+		$this->view('logintemplates/header', $data);
 		$this->view('admin/new');
-		$this->view('templates/footer');
+		$this->view('logintemplates/footer');
 	}
 
 	// create account
@@ -26,9 +26,9 @@ class Admin extends Controller{
 	// view form login
 	public function login(){
 		$data['judul'] = 'Login Admin';
-		$this->view('templates/header', $data);
+		$this->view('logintemplates/header', $data);
 		$this->view('admin/login');
-		$this->view('templates/footer');
+		$this->view('logintemplates/footer');
 	}
 
 	// validate login
@@ -37,10 +37,10 @@ class Admin extends Controller{
 
 	    if ($userData) {
 	        session_start();
-	        $_SESSION["login"] = true;
-	        $_SESSION["username"] = $userData["username"];
-	        $_SESSION["email"] = $userData["email"];
-	        $_SESSION["id"] = $userData["id"];
+	        $_SESSION["loginadmin"] = true;
+	        $_SESSION["usernameadmin"] = $userData["username"];
+	        $_SESSION["emailadmin"] = $userData["email"];
+	        $_SESSION["idadmin"] = $userData["id"];
 	        Flasher::setFlash('berhasil', 'login', 'success');
 	        header('Location: '.BASEURL.'/admin/index');
 	        exit;
@@ -56,19 +56,33 @@ class Admin extends Controller{
         $adminModel = $this->model('Admin_model');
         $data = $adminModel->checkLoginStatus();
         $data['judul'] = 'Halaman Admin';
+        $data['getCountBarangEmpty'] = $this->model('Barang_model')->getCountBarangEmpty();
+        $data['getCountBarang'] = $this->model('Barang_model')->getCountBarang();
+        $data['getCountBarangMasuk'] = $this->model('BarangMasuk_model')->getCountBarangMasuk();
+        $data['getCountBarangKeluar'] = $this->model('BarangKeluar_model')->getCountBarangKeluar();
         $data['barang'] = $this->model('Barang_model')->getAllBarang();
         $data['barang_masuk'] = $this->model('BarangMasuk_model')->getAllBarangMasukWithBarang();
         $data['barang_keluar'] = $this->model('BarangKeluar_model')->getAllBarangKeluarWithBarang();
-        $this->view('logintemplates/header', $data);
+        $this->view('templates/header', $data);
         $this->view('admin/index', $data);
-        $this->view('logintemplates/footer');
+        $this->view('templates/footer');
     }
 
 
     public function destroySession() {
-        $adminModel = $this->model('Admin_model');
-        $adminModel->destroySession();
-    }
+	    session_start();
+	    $_SESSION = [];
+	    session_unset();
+	    session_destroy();
+
+	    unset($_SESSION["loginadmin"]);
+	    unset($_SESSION["usernameadmin"]);
+	    unset($_SESSION["emailadmin"]);
+	    unset($_SESSION["idadmin"]);
+
+	    header('Location: '.BASEURL.'/admin/login');
+	    exit;
+	}
 
 
 

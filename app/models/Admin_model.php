@@ -35,10 +35,7 @@ class Admin_model{
             return false;
         }
 
-        //enkripsi password
         $password = password_hash($password, PASSWORD_DEFAULT);
-
-        //tambah ke database
         $query = "INSERT INTO admin VALUES('',:username,:email,:password)";
         $this->db->query($query);
 
@@ -78,13 +75,13 @@ class Admin_model{
 	}
 
     public function checkLoginStatus() {
-        if (!isset($_SESSION["login"]) || $_SESSION["login"] == false) {
+        if (!isset($_SESSION["loginadmin"]) || $_SESSION["loginadmin"] == false) {
             header('Location: '.BASEURL.'/admin/login');
             exit;
         } else {
-            $data['username'] = $_SESSION["username"];
-            $data['email'] = $_SESSION["email"];
-            $data['id'] = $_SESSION["id"];
+            $data['usernameadmin'] = $_SESSION["usernameadmin"];
+            $data['emailadmin'] = $_SESSION["emailadmin"];
+            $data['idadmin'] = $_SESSION["idadmin"];
             $data['judul'] = 'Halaman Admin';
 
             return $data;
