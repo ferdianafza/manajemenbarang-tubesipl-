@@ -2,20 +2,20 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-$(document).ready(function() {
+  $(document).ready(function() {
     $('#barang_id').on('change', function() {
-        var selectedBarangCount = $('#barang_id').val().length;
-        $('#jumlah').empty(); // Hapus elemen input jumlah yang ada
+      var selectedBarangCount = $('#barang_id').val().length;
+      $('#jumlah').empty(); // Remove existing quantity input elements
 
-        for (var i = 0; i < selectedBarangCount; i++) {
-            $('#jumlah').append('<div class="form-group">' +
-                '<label for="jumlah' + i + '" class="form-label">Jumlah Barang ' + (i + 1) + '</label>' +
-                '<input type="number" class="form-control" id="jumlah' + i + '" name="jumlah[]" value="" required>' +
-                '</div>');
-        }
+      for (var i = 0; i < selectedBarangCount; i++) {
+        $('#jumlah').append('<div class="form-group">' +
+          '<label for="jumlah' + i + '" class="form-label">Jumlah Barang ' + (i + 1) + '</label>' +
+          '<input type="number" class="form-control" id="jumlah' + i + '" name="jumlah[]" value="" required oninput="this.value = Math.max(1, this.value)">' +
+          '</div>');
+      }
     });
-});
-</script>  
+  });
+</script> 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
@@ -101,78 +101,38 @@ $(document).ready(function() {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- MULTIPLE -->
-          <form action="<?= BASEURL; ?>/suratjalan/create" method="post">
-    <!-- Bagian formulir sebelumnya tetap tidak berubah -->
-     <div class="form-group">
-        <label for="nama" class="form-label">Penerima</label>
-        <input type="text" class="form-control" id="penerima" name="penerima" required="">
-      </div>
+        <form action="<?= BASEURL; ?>/suratjalan/create" method="post">
+          <div class="form-group">
+            <label for="nama" class="form-label">Penerima</label>
+            <input type="text" class="form-control" id="penerima" name="penerima" required="">
+          </div>
 
-      <div class="form-group">
-        <label for="nama" class="form-label">Tujuan</label>
-        <input type="text" class="form-control" id="tujuan" name="tujuan" required="">
-      </div>
+          <div class="form-group">
+            <label for="nama" class="form-label">Tujuan</label>
+            <input type="text" class="form-control" id="tujuan" name="tujuan" required="">
+          </div>
 
-      <div class="form-group">
-        <label for="nrp" class="form-label">Penanggung Jawab</label>
-        <input type="number" class="form-control" id="staff_id" name="staff_id" value="<?= $data['idstaff']; ?>" readonly="" hidden>
-      </div>
-    <div class="form-group">
-        <label for="barang_id">Pilih Barang</label>
-        <select class="form-control" id="barang_id" name="barang_id[]" multiple="multiple">
-            <option value=""></option>
-            <?php foreach ($data['barang'] as $barang) : ?>
-                <option value="<?php echo $barang['id']; ?>"><?php echo $barang['nama_barang']; ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+          <div class="form-group">
+            <label for="nrp" class="form-label">Penanggung Jawab</label>
+            <input type="number" class="form-control" id="staff_id" name="staff_id" value="<?= $data['idstaff']; ?>" readonly="" hidden>
+          </div>
+          <div class="form-group">
+              <label for="barang_id">Pilih Barang</label>
+              <select class="form-control" id="barang_id" name="barang_id[]" multiple="multiple">
+                  <option value=""></option>
+                  <?php foreach ($data['barang'] as $barang) : ?>
+                      <option value="<?php echo $barang['id']; ?>"><?php echo $barang['nama_barang']; ?></option>
+                  <?php endforeach; ?>
+              </select>
+          </div>
 
-    <div id="jumlah"></div> <!-- Tempat menambahkan elemen input jumlah secara dinamis -->
+          <div id="jumlah"></div> 
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Buat Data</button>
-    </div>
-</form>
-
-        <!-- MULTIPLE -->
-       <!--  <form action="<?= BASEURL;?>/suratjalan/create" method="post">
-          <input type="hidden" name="id" id="id">
-      <div class="form-group">
-        <label for="nama" class="form-label">Penerima</label>
-        <input type="text" class="form-control" id="penerima" name="penerima" required="">
-      </div>
-
-      <div class="form-group">
-        <label for="nama" class="form-label">Tujuan</label>
-        <input type="text" class="form-control" id="tujuan" name="tujuan" required="">
-      </div>
-
-      <div class="form-group">
-        <label for="nrp" class="form-label">Penanggung Jawab</label>
-        <input type="number" class="form-control" id="staff_id" name="staff_id" value="<?= $data['id']; ?>" readonly="" hidden>
-      </div>
-      
-      <label for="barang_id">Pilih Barang</label>
-      <select class="form-control" id="barang_id" name="barang_id">
-          <option value=""></option>
-          <?php foreach ($data['barang'] as $barang) : ?>
-              <option value="<?php echo $barang['id']; ?>"><?php echo $barang['nama_barang']; ?></option>
-          <?php endforeach; ?>
-      </select>
-
-      <div class="form-group">
-        <label for="nrp" class="form-label">Jumlah</label>
-        <input type="number" class="form-control" id="jumlah" name="jumlah" value="" required="">
-      </div>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Buat Data</button>
-      </form> -->
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Buat Data</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
