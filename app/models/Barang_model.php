@@ -23,12 +23,13 @@ class Barang_model{
 
 	public function addBarang($data){
 		$query = "INSERT INTO barang VALUES('',:nama_barang,:stok)";
-		$this->db->query($query);
+		$this->db->query($query); 
 		$this->db->bind(':nama_barang', $data['nama_barang']);
 		$this->db->bind(':stok', $data['stok']);
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
+	
 
 	public function deleteBarang($id){
 		$query = "DELETE FROM barang WHERE id=:id";

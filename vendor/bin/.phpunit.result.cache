@@ -1,0 +1,1 @@
+{"version":1,"defects":{"BarangModelTest::testAddBarang":7,"BarangModelTest::testCreateBarang":7},"times":{"BarangModelTest::testAddBarang":0.045,"BarangModelTest::testCreateBarang":0.047,"BarangModelTest::testAddBarangMasuk":0.22}}

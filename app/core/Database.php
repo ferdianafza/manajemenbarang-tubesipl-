@@ -1,5 +1,6 @@
 <?php
 
+require_once 'app/config/config.php';
 class Database {
 	private $host = DB_HOST;
 	private $user = DB_USER;
