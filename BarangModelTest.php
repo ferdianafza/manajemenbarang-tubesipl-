@@ -7,13 +7,43 @@ require_once 'app/models/BarangMasuk_model.php';
 require_once 'app/models/BarangKeluar_model.php';
 require_once 'app/models/Suratjalan_model.php';
 require_once 'app/models/Barangsuratjalan_model.php';
+require_once 'app/models/Admin_model.php';
 require_once 'app/core/Database.php';
 
 
 class BarangModelTest extends TestCase {
+
+     private $adminModel;
+
+    protected function setUp(): void {
+        $this->adminModel = new Admin_model();
+    }
+
+    public function testCreateAdmin() {
+        $data = [
+            'username' => 'testuser5',
+            'email' => 'testuser5@example.com',
+            'password' => 'password123',
+            'confirmPassword' => 'password123'
+        ];
+
+        $result = $this->adminModel->createAdmin($data);
+        $this->assertTrue($result > 0, 'Admin berhasil dibuat');
+    }
+
+    public function testCreateSession() {
+        $data = [
+            'email' => 'testuser2@example.com',
+            'password' => 'password123'
+        ];
+
+        $result = $this->adminModel->createSession($data);
+        $this->assertIsArray($result, 'Login berhasil');
+    }
+
     public function testCreateBarang() {
         $barangModel = new Barang_model();
-        $data = ['nama_barang' => 'testbarulagi3', 'stok' => 5];
+        $data = ['nama_barang' => 'sepatu bola adidas', 'stok' => 5];
         $existingData = $barangModel->searchData($data['nama_barang']);
         if(empty($existingData)) {
             $result = $barangModel->addBarang($data);
@@ -68,8 +98,8 @@ class BarangModelTest extends TestCase {
     public function testCreateSuratJalan(){
         $barangModel = new Barang_model();
         $barangKeluar = new BarangKeluar_model();
-        $barangIds = [37, 36];
-        $jumlahs = [2,1];
+        $barangIds = [4, 5];
+        $jumlahs = [1,1];
 
         foreach ($barangIds as $index => $barangId) {
             $stok = $barangModel->getCurrentStock($barangId);
